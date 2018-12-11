@@ -225,9 +225,59 @@ Este archivo esta en la raiz del proyecto y editamos su contenido para que sea c
 </project>
 ```
 
-## POM.xml
+## APP.json
 
 Este archivo esta en la raiz del proyecto y editamos su contenido para que sea como el siguiente texto:
 
-```xml
+```json
+{
+  "name": "aesolemne3",
+  "description": "Proyecto CIISA - Taller de desarrollo de aplicaciones empresariales I - Solemne 3",
+  "scripts": {
+  },
+  "env": {
+    "MAVEN_CUSTOM_GOALS": "install payara-micro:bundle"
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
+
 ```
+
+
+## GLASSFISH-RESOURCES.XML
+
+Este archivo esta en la ruta: **src\main\webapp\WEB-INF\** del proyecto y editamos su contenido para que sea como el siguiente texto:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.postgresql.ds.PGSimpleDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="post-gre-pooldeconexion" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="ec2-23-21-188-236.compute-1.amazonaws.com"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="d5ue3bghpdgqks"/>
+        <property name="User" value="zxrksxbuvmwrjt"/>
+        <property name="Password" value="12b1972a5926ee9e29c1695eeed490915186cde0f0cb06511d32c128380ba652"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+        <property name="sslmode" value="require"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="java:app/DBCurso" object-type="user" pool-name="post-gre-pooldeconexion"/>
+</resources>
+```
+
+Para la edicion de este archivo, requerimos primero ver los datos de nuestra base de datos en Heroku, este este caso buscamos saber los siguientes valores:
+
+| Campo Heroku | Propiedad a editar |
+| :----------: | :----------------: |
+| Host         | serverName         |
+| Database     | databaseName       |
+| User         | User               |
+| Port         | portNumber         |
+| Password     | Password           |
