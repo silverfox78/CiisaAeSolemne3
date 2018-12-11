@@ -398,23 +398,6 @@ public class Servicio {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listaCursos() {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        Response retorno = null;
-
-        try {
-            List<DBCurso> lista = em.createNamedQuery(DBCURSO + ".findAll").getResultList();
-            if (lista.size() <= 0) {
-                retorno = Response.noContent().build();
-            } else {
-                retorno = Response.ok().entity(lista).build();
-            }
-        } catch (Exception e) {
-            retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
-        }
-        return retorno;*/
         return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
@@ -422,74 +405,18 @@ public class Servicio {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscarCursoPorId(@PathParam("id") String id) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        Response retorno = null;
-
-        try {
-            DBCurso curso = em.find(DBCurso.class, Integer.parseInt(id));
-            retorno = Response.ok(curso).build();
-        } catch (Exception e) {
-            retorno = Response.serverError().entity(MensajeError.buscarCursoPorId.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
-        }
-
-        return retorno;*/
         return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response guardarCurso(DBCurso curso) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
-        try {
-            tx.begin();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            curso.setCrtdFecha(date);
-            em.persist(curso);
-            tx.commit();
-            
-            retorno = Response.status(Response.Status.CREATED).build();
-        } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.guardarCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
-        }
-        return retorno;*/
         return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public Response actualizaCurso(DBCurso curso) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
-        try {
-            tx.begin();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            curso.setLupdFecha(date);
-            curso = em.merge(curso);
-            tx.commit();
-            
-            retorno = Response.status(Response.Status.OK).build();
-        } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.actualizaCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
-        }
-        return retorno;*/
         return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
@@ -497,25 +424,6 @@ public class Servicio {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response eliminaCurso(@PathParam("id") String id) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
-        try {
-            tx.begin();
-            DBCurso curso = em.getReference(DBCurso.class, Integer.parseInt(id));
-            em.remove(curso);
-            tx.commit();
-            retorno = Response.status(Response.Status.OK).build();
-        } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.eliminaCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
-        }
-
-        return retorno;*/
         return Response.serverError().entity(MetodoNoImplementado).build();
     }
 }
@@ -685,5 +593,103 @@ Este proceso toma unos minutos, actualmente dejamos cinco metodos, estos son:
 
 Para cada metodo, dejamos definido un retorno erroneo con el mensaje: **"Este metodo aun no se implementa."**
 
-Para validar estos metodos, podemos hacerlo desde la consola por medio de un script, este script sera asi:
+Para validar estos metodos, podemos hacerlo desde la consola por medio de un script (shell), este script requiere algunos archivos mas, la idea es la siguiente:
 
+| Acrhivo | Proposito |
+| ------- | --------- |
+| EjecutaServicios.sh | Script que ejecutaremos |
+| config.config | Aqui pondremos una plantilla para ejecucion del servicio |
+| m[NN]_[NombreMetodo].config | Por cada metodo a probar, tendremos un archivo como estos |
+
+Los metodos que por el minuto probaremos son:
+
+| Metodo | Archivo de configuracion |
+| :----- | -----------------------: |
+| Listar todos los cursos | m01_listarCursos.config |
+| Listar un curso por su ID | m02_listarCursoPorID.config |
+| Guardar un curso | m03_guardaCurso.config |
+| Actualizar un curso | m04_actualizaCurso.config |
+| Elimina un curso por su ID | m05_eliminaCurso.config |
+
+Con esto, el script **EjecutaServicios.sh** sera similar a lo siguiente:
+
+```shell
+#!/bin/bash
+declare -a METODOS=(
+    "m01_listarCursos"
+	"m02_listarCursoPorID"
+	"m03_guardaCurso"
+	"m04_actualizaCurso"
+	"m05_eliminaCurso")
+
+EjecutarServicio(){
+    Metodo=$1
+    Fecha=$2
+    Configuracion="$Metodo.config"
+    Salida="Json_$Metodo$Fecha.json"
+
+    NowDate=$(date +"%d/%m/%Y %H:%M:%S")
+    echo "Se ejecuta el metodo [$Metodo]." > $Salida
+    echo "Fecha: [$NowDate]." >> $Salida
+    echo " " >> $Salida
+    echo "Respuesta:" >> $Salida
+    echo " " >> $Salida
+    curl -K $Configuracion >> $Salida
+}
+
+Fecha=$(date +"%Y%m%d_%H%M%S")
+Contador=0
+
+for Metodo in "${METODOS[@]}"
+do
+    Contador=$((Contador+1))
+    echo "$Contador.- Se ejecuta el metodo [$Metodo]."
+    EjecutarServicio "$Metodo" "$Fecha"
+done
+```
+
+Para ejecutarlo, simplemente vamos a la carpeta donde este el archivo **EjecutaServicios.sh** y lo ejecutamos desde la consola:
+
+```shell
+sh EjecutaServicios.sh
+```
+
+El resultado del proceso son una serie de archivos con el formato **Json_[NombreArchivoConfiguracion][Fecha].json** que quedaran en la misma ruta, el contenido de estos archivos sera similar a lo siguiente:
+
+
+```json
+Se ejecuta el metodo [m01_listarCursos].
+Fecha: [11/12/2018 19:37:30].
+ 
+Respuesta:
+ 
+{ "Error" : "Este metodo aun no se implementa." }
+
+
+
+
+---------------------------------------------
+        Codigo HTTP: 500
+---------------------------------------------
+    time_namelookup:  0,109
+       time_connect:  0,281
+    time_appconnect:  0,843
+   time_pretransfer:  0,843
+      time_redirect:  0,000
+ time_starttransfer:  1,046
+                    ----------
+         time_total:  1,046
+---------------------------------------------
+      Byte Download: 49 bytes
+       Byte Request: 167 bytes
+        Byte Upload: 0 bytes
+---------------------------------------------
+```
+
+Gracias a esto validamos rapidamente la lista de metodos publicados.
+
+Por un tema de evitar tener basura en nuestro repositorio, opto por no versionar el resultado de las pruebas, por ello edito el archivo **.gitignore** anexando la siguiente linea:
+
+```shell
+ScriptShell/*.json
+```
