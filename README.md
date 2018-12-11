@@ -49,3 +49,28 @@ echo "" >> src/main/webapp/WEB-INF/glassfish-resources.xml
 ```
 
 Con esto creamos la estructura basica del proyecto y los principales elementos que dispondremos
+
+
+---
+
+# 2.- Versionamos nuestro proyecto
+
+Para este paso es necesario disponer de un repositorio, en este caso opto por Github y aqui creo un repositorio, para iniciar el versionamiento usamos el siguiente comando:
+
+```shell
+git init
+git add .
+git commit -am "Solemne 3"
+git remote add origin https://github.com/silverfox78/CiisaAeSolemne3.git
+git push -u origin master
+```
+
+Si deseamos guardar nuestras credenciales (por comodidad), podemos usar este comando:
+
+```shell
+git remote -v
+git config credential.helper store
+git push https://github.com/silverfox78/CiisaAeSolemne3.git
+Username: <-- su correo -->
+Password: <-- su contraseña -->
+```
