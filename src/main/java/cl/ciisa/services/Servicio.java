@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import cl.ciisa.data.DBCurso;
+import cl.ciisa.negocio.Curso;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,30 +23,12 @@ import javax.ws.rs.PathParam;
 
 @Path("/curso")
 public class Servicio {
-    public static final String DBCURSO = "DBCurso";
     public static final String MetodoNoImplementado = "{ \"Error\" : \"Este metodo aun no se implementa.\" }";
-
-    private enum MensajeError{
-        listaCursos("Error al listar los curso - "),
-        buscarCursoPorId("Error, no se encontro el curso - "),
-        guardarCurso("Error al guardar el curso - "),
-        actualizaCurso("Error al actualizar el curso - "),
-        eliminaCurso("Error al eliminar el curso - ");
-
-        private String mensaje;
-
-        MensajeError(String mensaje){
-            this.mensaje = mensaje;
-        }
-
-        public String getMensaje() {
-            return this.mensaje;
-        }
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listaCursos() {
+        return new Curso().listar();
         /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
         EntityManager em = emf.createEntityManager();
         Response retorno = null;
@@ -63,7 +46,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        return Response.serverError().entity(MetodoNoImplementado).build();
+        //return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @GET

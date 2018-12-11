@@ -374,26 +374,7 @@ import javax.ws.rs.PathParam;
 
 @Path("/curso")
 public class Servicio {
-    public static final String DBCURSO = "DBCurso";
     public static final String MetodoNoImplementado = "{ 'Error' : 'Este metodo aun no se implementa.' }";
-
-    private enum MensajeError{
-        listaCursos("Error al listar los curso - "),
-        buscarCursoPorId("Error, no se encontro el curso - "),
-        guardarCurso("Error al guardar el curso - "),
-        actualizaCurso("Error al actualizar el curso - ");
-        eliminaCurso("Error al eliminar el curso - ");
-
-        private String mensaje;
-
-        MensajeError(String mensaje){
-            this.mensaje = mensaje;
-        }
-
-        public String getMensaje() {
-            return this.mensaje;
-        }
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -693,3 +674,15 @@ Por un tema de evitar tener basura en nuestro repositorio, opto por no versionar
 ```shell
 ScriptShell/*.json
 ```
+
+
+# 7.- Codificando el primer metodo
+
+Ahora que sabemos que nuestro proceso de CI/CD esta operando y tambien sabemos que la publicacion fue exitosa y los servicios estan operando, es el minuto de implementer algo de codigo.
+
+Iniciamos por el metodo que lista todos los cursos, para ello crearemos una clase que realize esta accion.
+
+Los pasos para esto:
+* Creamos un package para contener estas clases, en este caso **cl.ciisa.negocio**
+* En el package creamos la clase **Curso**, aqui implementaremos la logica para esta tabla.
+
