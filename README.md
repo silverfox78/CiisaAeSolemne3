@@ -225,6 +225,8 @@ Este archivo esta en la raiz del proyecto y editamos su contenido para que sea c
 </project>
 ```
 
+
+
 ## APP.json
 
 Este archivo esta en la raiz del proyecto y editamos su contenido para que sea como el siguiente texto:
@@ -251,9 +253,10 @@ Este archivo esta en la raiz del proyecto y editamos su contenido para que sea c
 ```
 
 
+
 ## GLASSFISH-RESOURCES.XML
 
-Este archivo esta en la ruta: **src\main\webapp\WEB-INF\** del proyecto y editamos su contenido para que sea como el siguiente texto:
+Este archivo esta en la ruta: ** src\main\webapp\WEB-INF\ ** del proyecto y editamos su contenido para que sea como el siguiente texto:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -281,3 +284,242 @@ Para la edicion de este archivo, requerimos primero ver los datos de nuestra bas
 | User         | User               |
 | Port         | portNumber         |
 | Password     | Password           |
+
+
+
+
+## PERSISTENCE.xml
+
+Este archivo esta en la ruta: ** src\main\resources\META-INF\ ** del proyecto y editamos su contenido para que sea como el siguiente texto:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="DBCurso" transaction-type="RESOURCE_LOCAL">
+    <non-jta-data-source>java:app/DBCurso</non-jta-data-source>
+    <class>cl.ciisa.data.DBCurso</class>
+    <class>cl.ciisa.data.DBAlumno</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>
+```
+
+En este caso, usamos el nombre de la conexion que especificamos en el archivo **GLASSFISH-RESOURCES.XML**, tambien listamos las clases que usaremos, en este caso **DBCurso** y **DBAlumno**, estas representaran a las tablas que crearemos.
+
+
+
+
+## INDEX.jsp
+
+Este archivo esta en la ruta: ** src\main\webapp\ ** del proyecto y editamos su contenido para que sea como el siguiente texto:
+
+```jsp
+<html>
+<body>
+<h1>Servicio de Cursos y Alumnos</h1>
+<hr>
+</body>
+</html>
+```
+
+
+
+## APPCONFIG.java
+
+Este archivo esta en la ruta: ** src\main\java\cl\ciisa\services\ ** del proyecto y editamos su contenido para que sea como el siguiente texto:
+
+```java
+
+package cl.ciisa.services;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/api")
+public class AppConfig extends Application{
+    
+}
+
+```
+
+
+
+## Servicio.java
+
+Este archivo esta en la ruta: ** src\main\java\cl\ciisa\services\ ** del proyecto y editamos su contenido para que sea como el siguiente texto:
+
+```java
+package cl.ciisa.services;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import cl.ciisa.data.DBCurso;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.persistence.EntityTransaction;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+
+@Path("/curso")
+public class Servicio {
+    public static final String DBCURSO = "DBCurso";
+    public static final String MetodoNoImplementado = "Este metodo aun no se implemente";
+
+    private enum MensajeError{
+        listaCursos("Error al listar los curso - "),
+        buscarCursoPorId("Error, no se encontro el curso - "),
+        guardarCurso("Error al guardar el curso - "),
+        actualizaCurso("Error al actualizar el curso - ");
+        eliminaCurso("Error al eliminar el curso - ");
+
+        private String mensaje;
+
+        Mensaje(String mensaje){
+            this.mensaje = mensaje;
+        }
+
+        public String getMensaje() {
+            return this.mensaje;
+        }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listaCursos() {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+        Response retorno = null;
+
+        try {
+            List<DBCurso> lista = em.createNamedQuery(DBCURSO + ".findAll").getResultList();
+            if (lista.size() <= 0) {
+                retorno = Response.noContent().build();
+            } else {
+                retorno = Response.ok().entity(lista).build();
+            }
+        } catch (Exception e) {
+            retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+        return retorno;*/
+        Response.serverError().entity(MetodoNoImplementado).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarCursoPorId(@PathParam("id") String id) {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+        Response retorno = null;
+
+        try {
+            DBCurso curso = em.find(DBCurso.class, Integer.parseInt(id));
+            retorno = Response.ok(curso).build();
+        } catch (Exception e) {
+            retorno = Response.serverError().entity(MensajeError.buscarCursoPorId.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+
+        return retorno;*/
+        Response.serverError().entity(MetodoNoImplementado).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response guardarCurso(DBCurso curso) {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Response retorno = null;
+
+        try {
+            tx.begin();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            curso.setCrtdFecha(date);
+            em.persist(curso);
+            tx.commit();
+            
+            retorno = Response.status(Response.Status.CREATED).build();
+        } catch (Exception e) {
+            tx.rollback();
+            retorno = Response.serverError().entity(MensajeError.guardarCurso.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+        return retorno;*/
+        Response.serverError().entity(MetodoNoImplementado).build();
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizaCurso(DBCurso curso) {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Response retorno = null;
+
+        try {
+            tx.begin();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            curso.setLupdFecha(date);
+            curso = em.merge(curso);
+            tx.commit();
+            
+            retorno = Response.status(Response.Status.OK).build();
+        } catch (Exception e) {
+            tx.rollback();
+            retorno = Response.serverError().entity(MensajeError.actualizaCurso.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+        return retorno;*/
+        Response.serverError().entity(MetodoNoImplementado).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminaCurso(@PathParam("id") String id) {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Response retorno = null;
+
+        try {
+            tx.begin();
+            DBCurso curso = em.getReference(DBCurso.class, Integer.parseInt(id));
+            em.remove(curso);
+            tx.commit();
+            retorno = Response.status(Response.Status.OK).build();
+        } catch (Exception e) {
+            tx.rollback();
+            retorno = Response.serverError().entity(MensajeError.eliminaCurso.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+
+        return retorno;*/
+        Response.serverError().entity(MetodoNoImplementado).build();
+    }
+}
+
+```
+
+***Esto solo sera la cascara de los metodos que construiremos, esta incompleta y tiene errores, pero sera la base de lo que haremos.***
