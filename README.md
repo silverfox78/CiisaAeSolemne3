@@ -657,7 +657,7 @@ sh EjecutaServicios.sh
 El resultado del proceso son una serie de archivos con el formato **Json_[NombreArchivoConfiguracion][Fecha].json** que quedaran en la misma ruta, el contenido de estos archivos sera similar a lo siguiente:
 
 
-```json
+```
 Se ejecuta el metodo [m01_listarCursos].
 Fecha: [11/12/2018 19:37:30].
  
