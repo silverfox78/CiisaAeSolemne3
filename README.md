@@ -375,7 +375,7 @@ import javax.ws.rs.PathParam;
 @Path("/curso")
 public class Servicio {
     public static final String DBCURSO = "DBCurso";
-    public static final String MetodoNoImplementado = "Este metodo aun no se implemente";
+    public static final String MetodoNoImplementado = "{ 'Error' : 'Este metodo aun no se implementa.' }";
 
     private enum MensajeError{
         listaCursos("Error al listar los curso - "),
@@ -670,3 +670,17 @@ Tras esto:
 | ----- | ----- |
 | TBL_ALUMNO | DBAlumno |
 | TBL_CURSO | DBCurso |
+
+Ahora que anexamos esto, estamos en condiciones de actualizar el repositorio y habilitar el Deploy desde Heroku.
+
+Este proceso toma unos minutos, actualmente dejamos cinco metodos, estos son:
+
+| Metodo | Verbo | Url  |
+| :----- | :---: | :--- |
+| Listar todos los cursos | GET | https://aesolemne3.herokuapp.com/api/curso |
+| Listar un curso por su ID | GET | https://aesolemne3.herokuapp.com/api/curso/{id} |
+| Guardar un curso | POST | https://aesolemne3.herokuapp.com/api/curso |
+| Actualizar un curso | PUT | https://aesolemne3.herokuapp.com/api/curso |
+| Elimina un curso por su ID | DELETE | https://aesolemne3.herokuapp.com/api/curso/{id} |
+
+Para cada metodo, dejamos definido un retorno erroneo con el mensaje: **"Este metodo aun no se implementa.**
