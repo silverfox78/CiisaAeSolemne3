@@ -23,7 +23,7 @@ import javax.ws.rs.PathParam;
 @Path("/curso")
 public class Servicio {
     public static final String DBCURSO = "DBCurso";
-    public static final String MetodoNoImplementado = "{ 'Error' : 'Este metodo aun no se implementa.' } ";
+    public static final String MetodoNoImplementado = "{ \"Error\" : \"Este metodo aun no se implementa.\" }";
 
     private enum MensajeError{
         listaCursos("Error al listar los curso - "),

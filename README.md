@@ -683,4 +683,7 @@ Este proceso toma unos minutos, actualmente dejamos cinco metodos, estos son:
 | Actualizar un curso | PUT | https://aesolemne3.herokuapp.com/api/curso |
 | Elimina un curso por su ID | DELETE | https://aesolemne3.herokuapp.com/api/curso/{id} |
 
-Para cada metodo, dejamos definido un retorno erroneo con el mensaje: **"Este metodo aun no se implementa.**
+Para cada metodo, dejamos definido un retorno erroneo con el mensaje: **"Este metodo aun no se implementa."**
+
+Para validar estos metodos, podemos hacerlo desde la consola por medio de un script, este script sera asi:
+
