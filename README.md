@@ -386,7 +386,7 @@ public class Servicio {
 
         private String mensaje;
 
-        Mensaje(String mensaje){
+        MensajeError(String mensaje){
             this.mensaje = mensaje;
         }
 
@@ -415,7 +415,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @GET
@@ -436,7 +436,7 @@ public class Servicio {
         }
 
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @POST
@@ -463,7 +463,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @PUT
@@ -490,7 +490,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @DELETE
@@ -516,7 +516,7 @@ public class Servicio {
         }
 
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 }
 
@@ -648,3 +648,25 @@ ALTER TABLE public.tbl_alumno
 ALTER SEQUENCE tbl_alumno_seq
     OWNED BY tbl_alumno.id;
 ```
+
+
+
+---
+
+# 6.- Manos a la obra
+
+Ya en este punto tenemos lo basico para iniciar el proyecto con nuestro ide, en este caso opto por **NetBeans**, asi que abrimos el proyecto desde la ruta donde lo tenemos.
+
+Al abrise vemos que tenemos algunos errores, esto es debido a la ausencia de las Clases de entidad que persistiran nuestros datos, para ello lo primero es crear la conexion.
+
+Tras esto: 
+* Seleccionamos las tablas
+* Renombramos las clases
+* Seleccionamos el package de destino, en este caso **cl.ciisa.data**
+* Seleccionamos el tipo de coleccion como **java.util.List**
+
+
+| Tabla | Clase |
+| ----- | ----- |
+| TBL_ALUMNO | DBAlumno |
+| TBL_CURSO | DBCurso |

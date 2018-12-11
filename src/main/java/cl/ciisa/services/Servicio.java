@@ -34,7 +34,7 @@ public class Servicio {
 
         private String mensaje;
 
-        Mensaje(String mensaje){
+        MensajeError(String mensaje){
             this.mensaje = mensaje;
         }
 
@@ -63,7 +63,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @GET
@@ -84,7 +84,7 @@ public class Servicio {
         }
 
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @POST
@@ -111,7 +111,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @PUT
@@ -138,7 +138,7 @@ public class Servicio {
             em.close();
         }
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @DELETE
@@ -164,6 +164,6 @@ public class Servicio {
         }
 
         return retorno;*/
-        Response.serverError().entity(MetodoNoImplementado).build();
+        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 }
