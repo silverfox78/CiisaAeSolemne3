@@ -1,6 +1,7 @@
 package cl.ciisa.negocio;
 
 import cl.ciisa.data.DBCurso;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,10 +36,11 @@ public class Curso {
 
         try {
             List<DBCurso> lista = em.createNamedQuery(DBCURSO + ".findAll").getResultList();
+            
             if (lista.size() <= 0) {
                 retorno = Response.noContent().build();
             } else {
-                retorno = Response.ok().entity(lista).build();
+                retorno = Response.ok().entity(lista.get(0)).build();
             }
         } catch (Exception e) {
             retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();

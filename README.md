@@ -685,4 +685,171 @@ Iniciamos por el metodo que lista todos los cursos, para ello crearemos una clas
 Los pasos para esto:
 * Creamos un package para contener estas clases, en este caso **cl.ciisa.negocio**
 * En el package creamos la clase **Curso**, aqui implementaremos la logica para esta tabla.
+* Implementamos el metodo **listar**
+
+## CURSO.java
+
+```java
+package cl.ciisa.negocio;
+
+import cl.ciisa.data.DBCurso;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.ws.rs.core.Response;
+
+public class Curso {
+    public static final String DBCURSO = "DBCurso";
+
+    private enum MensajeError{
+        listaCursos("Error al listar los curso - "),
+        buscarCursoPorId("Error, no se encontro el curso - "),
+        guardarCurso("Error al guardar el curso - "),
+        actualizaCurso("Error al actualizar el curso - "),
+        eliminaCurso("Error al eliminar el curso - ");
+
+        private String mensaje;
+
+        MensajeError(String mensaje){
+            this.mensaje = mensaje;
+        }
+
+        public String getMensaje() {
+            return this.mensaje;
+        }
+    }
+    
+    public Response listar(){
+        Response retorno = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            List<DBCurso> lista = em.createNamedQuery(DBCURSO + ".findAll").getResultList();
+            if (lista.size() <= 0) {
+                retorno = Response.noContent().build();
+            } else {
+                retorno = Response.ok().entity(lista).build();
+            }
+        } catch (Exception e) {
+            retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();
+        } finally {
+            em.close();
+        }
+        return retorno;
+    }
+}
+```
+
+Ya con esto listo, actualizamos el servicio, especificamente el metodo **listaCursos**
+
+## SERVICIO.java - metodo:listaCursos
+
+```java
+@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listaCursos() {
+        return new Curso().listar();
+    }
+```
+
+Con este cambio y la base sin datos, debemos esperar un codigo 204 (Sin datos).
+
+Ejecutamos nuestras pruebas y vemos el resultado:
+
+```
+Se ejecuta el metodo [m01_listarCursos].
+Fecha: [11/12/2018 20:10:49].
+ 
+Respuesta:
+ 
+
+
+
+
+
+---------------------------------------------
+        Codigo HTTP: 204
+---------------------------------------------
+    time_namelookup:  0,000
+       time_connect:  0,187
+    time_appconnect:  0,734
+   time_pretransfer:  0,734
+      time_redirect:  0,000
+ time_starttransfer:  0,953
+                    ----------
+         time_total:  0,953
+---------------------------------------------
+      Byte Download: 0 bytes
+       Byte Request: 167 bytes
+        Byte Upload: 0 bytes
+---------------------------------------------
+```
+
+Esto se acomoda perfectamente a lo que esperabamos, asi que ahora anexaremos un par de registros de pruebas, para ello ejecutaremos el siguiente script:
+
+```sql
+INSERT INTO public.tbl_curso(
+nombre, profesor, descripcion, nivel, basica, diurno, crtd_fecha)
+VALUES ('1A', 'DAVID ENAMORADO GUZMAN', 'Curso 1A', 1, TRUE, TRUE, CURRENT_TIMESTAMP);
+
+
+INSERT INTO public.tbl_curso(
+nombre, profesor, descripcion, nivel, basica, diurno, crtd_fecha)
+VALUES ('1B', 'SAMUEL BARRERA BASTIDAS', 'Curso 1B', 1, TRUE, TRUE, CURRENT_TIMESTAMP);
+```
+
+Tras la insercion de registros, volvemos a ejecutar la prueba, ahora el resultado es diferente:
+
+```json
+Se ejecuta el metodo[m01_listarCursos].
+Fecha: [11 / 12 / 2018 20: 20: 20].
+
+Respuesta:
+
+        [{
+                "DBAlumnoList": [],
+                "basica": true,
+                "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+                "descripcion": "Curso 1A",
+                "diurno": true,
+                "id": 1,
+                "nivel": 1,
+                "nombre": "1A",
+                "profesor": "DAVID ENAMORADO GUZMAN"
+        }, {
+                "DBAlumnoList": [],
+                "basica": true,
+                "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+                "descripcion": "Curso 1B",
+                "diurno": true,
+                "id": 2,
+                "nivel": 1,
+                "nombre": "1B",
+                "profesor": "SAMUEL BARRERA BASTIDAS"
+        }]
+
+
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+Codigo HTTP: 200
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+time_namelookup: 0, 188
+time_connect: 0, 375
+time_appconnect: 0, 953
+time_pretransfer: 0, 953
+time_redirect: 0, 000
+time_starttransfer: 1, 359
+-- -- -- -- --
+time_total: 1, 359
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+Byte Download: 370 bytes
+Byte Request: 167 bytes
+Byte Upload: 0 bytes
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+```
+
+Ahora validemos el proceso al insertar **Alumnos** en la base, la logica nos dice que deberian listarse junto a sus cursos.
 
