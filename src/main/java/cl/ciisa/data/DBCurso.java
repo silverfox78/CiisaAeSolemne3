@@ -82,7 +82,7 @@ public class DBCurso implements Serializable {
     @Column(name = "lupd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lupdFecha;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dBCurso", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dBCurso")
     private DBAlumno dBAlumno;
 
     public DBCurso() {
