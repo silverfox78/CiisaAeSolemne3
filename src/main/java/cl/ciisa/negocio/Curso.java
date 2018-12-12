@@ -40,7 +40,7 @@ public class Curso {
             if (lista.size() <= 0) {
                 retorno = Response.noContent().build();
             } else {
-                retorno = Response.ok().entity(lista.get(0)).build();
+                retorno = Response.ok().entity(lista).build();
             }
         } catch (Exception e) {
             retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();

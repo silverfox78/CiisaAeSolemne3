@@ -10,6 +10,39 @@
 
 **Alumno:** Samuel Barrera Bastidas
 
+## Trabajo para nota Solemne 3
+
+El trabajo debe ser realizado utilizando Payara Micro para ser desplegado en Heroku.
+
+Desarrollar una API que implemente un CRUD. 
+
+* La API se debe desarrollar bajo los principios arquitectónicos REST.(protocolo, verbos, estado, etc.)
+* Los Request y los Response de la API deberán ser en formato  JSON.
+* La persistencia deberá ser implementando  JPA. (Entity, em, emf, etc).
+* La base de datos debe ser en Postgresql y desplegada en Heroku.
+* La base de datos debe contener mínimo 2 (Dos) tablas las cuales deberàn estar relacionadas de forma 1:N (maestro detalle).
+* Los valores de  configuración de la conexión a la base datos se deben pasar por medio de variables de entorno. (environment variable).
+* Haciendo uso de un cliente REST (Postman), las operaciones CRUD correspondientes a las 2 (Dos) tablas relacionadas (1:N, maestro detalle) deben ser efectuadas con el mismo Request, es decir se deben enviar los datos de las dos tablas relacionadas en una sola petición a la API.
+
+
+Ejemplo de JSON para Request con un Objeto anidado para operaciones CRUD con tablas relacionadas 1:N
+
+```json
+{
+    "id": "10",
+    "montototal": 200,
+    "detallecompra":[
+        {"id":"10", "idprod":"1", "nombre":"lapiz", "cantidad":2},
+        {"id":"10", "idprod":"2", "nombre":"borrador", "cantidad":1}
+    ]
+}
+```
+
+Nota: 
+Trabajos que implementen, o tomen los ejemplos realizados por el profesor en clase o por otro medio no serán tenidos en cuenta para la calificación.  
+Se debe enviar por correo el enlace de la aplicación desplegada en Heroku, adicionalmente se debe enviar este mismo enlace a través del aula virtual.
+Recuerden que me deben agregar como colaborador en Heroku. 
+
 ---
 
 # 1.- Creacion del proyecto base
