@@ -1,10 +1,18 @@
 #!/bin/bash
 declare -a METODOS=(
     "m01_listarCursos"
-	"m02_listarCursoPorID"
-	"m03_guardaCurso"
+	"m02_guardaCurso"
+	"m03_listarCursoPorID"
 	"m04_actualizaCurso"
-	"m05_eliminaCurso")
+    "m05_listarCursoPorID"
+    "m06_guardaAlumno"
+    "m07_listarAlumnoPorID"
+    "m08_actualizaAlumno"
+    "m09_listarAlumnoPorIDCurso"
+    "m10_eliminaAlumnoPorID"
+	"m11_eliminaCurso"
+    "m12_listarCursos"
+    )
 
 EjecutarServicio(){
     Metodo=$1

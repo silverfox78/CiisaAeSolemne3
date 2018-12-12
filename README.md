@@ -708,6 +708,7 @@ Por un tema de evitar tener basura en nuestro repositorio, opto por no versionar
 ScriptShell/*.json
 ```
 
+---
 
 # 7.- Codificando el primer metodo
 
@@ -892,3 +893,330 @@ Para ello se actualizo la tabla de alumno y se regeneraron las clases de JPA.
 
 Tambien tuve que crear tablas de negocio y transferencia que satisfacieran esta logica.
 
+
+
+---
+
+# 8.- Conclusion
+
+Los metodos que finalmente quedaron expuestos son:
+
+|  N  | Metodo | Verbo | Url  |
+| :-- | :----- | :---: | :--- |
+| 1   | Listar todos los cursos | GET | https://aesolemne3.herokuapp.com/api/curso |
+| 2   | Listar un curso por su ID | GET | https://aesolemne3.herokuapp.com/api/curso/{id} |
+| 3   | Guardar un curso | POST | https://aesolemne3.herokuapp.com/api/curso |
+| 4   | Actualizar un curso | PUT | https://aesolemne3.herokuapp.com/api/curso |
+| 5   | Elimina un curso por su ID | DELETE | https://aesolemne3.herokuapp.com/api/curso/{id} |
+| 6   | Listar los alumnos de un curso | GET | https://aesolemne3.herokuapp.com/api/curso/{id}/Alumno |
+| 7   | Listar un alumno por su ID | GET | https://aesolemne3.herokuapp.com/api/curso/Alumno/{id} |
+| 8   | Guardar un alumno | POST | https://aesolemne3.herokuapp.com/api/curso/{id}/Alumno |
+| 9   | Actualizar un alumno | PUT | https://aesolemne3.herokuapp.com/api/curso/{id}/Alumno |
+| 10  | Elimina un alumno por su ID | DELETE | https://aesolemne3.herokuapp.com/api/curso/Alumno/{id} |
+
+Para la evidencia del proceso, se hizo la siguiente secuencia de acciones:
+
+1. Listar todos los cursos
+2. Guardar un nuevo curso
+3. Listar un curso por su ID
+4. Actualizar el curso creado
+5. Listar el curso por su ID
+6. Crear un alumno en el nuevo curso
+7. Listar el alumno por su id
+8. Actualizar al alumno
+9. Listar los alumnos del curso
+10. Eliminar el Alumno
+11. Eliminar el Curso
+12. Listar todos los cursos
+
+## Resultado de las pruebas
+
+### 1.- Listar todos los cursos
+
+| --- | --- |
+| Verbo | GET |
+| URL | https://aesolemne3.herokuapp.com/api/curso |
+
+Resultado:
+
+```json
+    [{
+            "alumnos": [{
+                    "apellidos": "Prueba",
+                    "idAlumno": 1,
+                    "nombres": "Prueba",
+                    "rut": "1-2"
+            }, {
+                    "apellidos": "CONTRERAS",
+                    "idAlumno": 2,
+                    "nombres": "MARCO",
+                    "rut": "2-7"
+            }, {
+                    "apellidos": "CESPEDES",
+                    "idAlumno": 3,
+                    "nombres": "LIDIA",
+                    "rut": "3-5"
+            }],
+            "basica": true,
+            "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+            "descripcion": "Curso 1A",
+            "diurno": true,
+            "id": 1,
+            "nivel": 1,
+            "nombre": "1A",
+            "profesor": "DAVID ENAMORADO GUZMAN"
+    }, {
+            "alumnos": [{
+                    "apellidos": "MORALES",
+                    "idAlumno": 4,
+                    "nombres": "JENNY",
+                    "rut": "4-3"
+            }, {
+                    "apellidos": "MARTINEZ",
+                    "idAlumno": 5,
+                    "nombres": "HECTOR",
+                    "rut": "5-1"
+            }, {
+                    "apellidos": "BECERRA",
+                    "idAlumno": 6,
+                    "nombres": "JORGE",
+                    "rut": "6-2"
+            }],
+            "basica": true,
+            "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+            "descripcion": "Curso 1B",
+            "diurno": true,
+            "id": 2,
+            "nivel": 1,
+            "nombre": "1B",
+            "profesor": "SAMUEL BARRERA BASTIDAS"
+    }]
+```
+
+### 2. Guardar un nuevo curso
+
+| --- | --- |
+| Verbo | POST |
+| URL | https://aesolemne3.herokuapp.com/api/curso |
+| BODY | { \"nombre\" : \"7Z\", \"profesor\": \"Prof. Roza\", \"descripcion\" : \"Prueba generica\", \"nivel\": 7, \"basica\" : false, \"diurno\" : false } |
+
+Resultado:
+
+Codigo HTTP: 201
+
+
+### 3. Listar un curso por su ID
+
+| --- | --- |
+| Verbo | GET |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6 |
+
+Resultado:
+
+```json
+[{
+        "alumnos": [],
+        "basica": false,
+        "crtdFecha": "2018-12-12T05:37:41.303Z[UTC]",
+        "descripcion": "Prueba generica",
+        "diurno": false,
+        "id": 6,
+        "nivel": 7,
+        "nombre": "7Z",
+        "profesor": "Prof. Roza"
+}]
+```
+
+
+### 4. Actualizar el curso creado
+
+| --- | --- |
+| Verbo | PUT |
+| URL | https://aesolemne3.herokuapp.com/api/curso |
+| Body | { \"id\" : 6, \"nombre\" : \"7Z\", \"profesor\": \"Prof. Rozza\", \"descripcion\" : \"Actualizado\", \"nivel\": 7, \"basica\" : false, \"diurno\" : false } |
+
+Resultado:
+
+Codigo HTTP: 200
+
+
+
+### 5. Listar el curso por su ID
+
+| --- | --- |
+| Verbo | GET |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6 |
+
+Resultado:
+
+```json
+[{
+        "alumnos": [],
+        "basica": false,
+        "descripcion": "Actualizado",
+        "diurno": false,
+        "id": 6,
+        "lupdFecha": "2018-12-12T05:37:43.423Z[UTC]",
+        "nivel": 7,
+        "nombre": "7Z",
+        "profesor": "Prof. Rozza"
+}]
+```
+
+
+### 6. Crear un alumno en el nuevo curso
+
+| --- | --- |
+| Verbo | POST |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno |
+| BODY | { \"rut\" : \"123-5\", \"nombres\": \"Benito\", \"apellidos\" : \"Perez Fonzeca\" } |
+
+Resultado:
+
+Codigo HTTP: 201
+
+
+
+
+### 7. Listar el alumno por su id
+
+| --- | --- |
+| Verbo | GET |
+| URL | https://aesolemne3.herokuapp.com/api/curso/Alumno/7 |
+
+Resultado:
+
+```json
+        {
+                "apellidos": "Perez Fonzeca",
+                "idAlumno": 7,
+                "idCurso": 6,
+                "nombres": "Benito",
+                "rut": "123-5"
+        }
+```
+
+
+
+### 8. Actualizar al alumno
+
+| --- | --- |
+| Verbo | PUT |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno |
+| BODY | { \"idAlumno\": 7, \"rut\" : \"123-4\", \"nombres\": \"Benito\", \"apellidos\" : \"Perez Perez\" } |
+
+Resultado:
+
+Codigo HTTP: 200
+
+
+
+### 9. Listar los alumnos del curso
+
+| --- | --- |
+| Verbo | GET |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno/ |
+
+Resultado:
+
+```json
+        [{
+                "apellidos": "Perez Perez",
+                "idAlumno": 7,
+                "nombres": "Benito",
+                "rut": "123-4"
+        }]
+```
+
+
+
+
+### 10. Eliminar el Alumno
+
+| --- | --- |
+| Verbo | DELETE |
+| URL | https://aesolemne3.herokuapp.com/api/curso/Alumno/7 |
+
+Resultado:
+
+Codigo HTTP: 200
+
+
+
+
+### 11. Eliminar el Curso
+
+| --- | --- |
+| Verbo | DELETE |
+| URL | https://aesolemne3.herokuapp.com/api/curso/6 |
+
+Resultado:
+
+Codigo HTTP: 200
+
+
+
+
+
+### 12. Listar todos los cursos
+
+| --- | --- |
+| Verbo | POST |
+| URL | https://aesolemne3.herokuapp.com/api/curso |
+
+Resultado:
+
+```json
+
+        [{
+                "alumnos": [{
+                        "apellidos": "Prueba",
+                        "idAlumno": 1,
+                        "nombres": "Prueba",
+                        "rut": "1-2"
+                }, {
+                        "apellidos": "CONTRERAS",
+                        "idAlumno": 2,
+                        "nombres": "MARCO",
+                        "rut": "2-7"
+                }, {
+                        "apellidos": "CESPEDES",
+                        "idAlumno": 3,
+                        "nombres": "LIDIA",
+                        "rut": "3-5"
+                }],
+                "basica": true,
+                "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+                "descripcion": "Curso 1A",
+                "diurno": true,
+                "id": 1,
+                "nivel": 1,
+                "nombre": "1A",
+                "profesor": "DAVID ENAMORADO GUZMAN"
+        }, {
+                "alumnos": [{
+                        "apellidos": "MORALES",
+                        "idAlumno": 4,
+                        "nombres": "JENNY",
+                        "rut": "4-3"
+                }, {
+                        "apellidos": "MARTINEZ",
+                        "idAlumno": 5,
+                        "nombres": "HECTOR",
+                        "rut": "5-1"
+                }, {
+                        "apellidos": "BECERRA",
+                        "idAlumno": 6,
+                        "nombres": "JORGE",
+                        "rut": "6-2"
+                }],
+                "basica": true,
+                "crtdFecha": "2018-12-11T23:20:04.473Z[UTC]",
+                "descripcion": "Curso 1B",
+                "diurno": true,
+                "id": 2,
+                "nivel": 1,
+                "nombre": "1B",
+                "profesor": "SAMUEL BARRERA BASTIDAS"
+        }]
+```
