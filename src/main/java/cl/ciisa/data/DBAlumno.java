@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "DBAlumno.findAll", query = "SELECT d FROM DBAlumno d")
     , @NamedQuery(name = "DBAlumno.findByIdAlumno", query = "SELECT d FROM DBAlumno d WHERE d.idAlumno = :idAlumno")
+    , @NamedQuery(name = "DBAlumno.findByIdCurso", query = "SELECT d FROM DBAlumno d WHERE d.idCurso = :idCurso")
     , @NamedQuery(name = "DBAlumno.findByRut", query = "SELECT d FROM DBAlumno d WHERE d.rut = :rut")
     , @NamedQuery(name = "DBAlumno.findByNombres", query = "SELECT d FROM DBAlumno d WHERE d.nombres = :nombres")
     , @NamedQuery(name = "DBAlumno.findByApellidos", query = "SELECT d FROM DBAlumno d WHERE d.apellidos = :apellidos")})
@@ -42,6 +41,10 @@ public class DBAlumno implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_alumno")
     private Integer idAlumno;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_curso")
+    private int idCurso;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -57,9 +60,6 @@ public class DBAlumno implements Serializable {
     @Size(min = 1, max = 300)
     @Column(name = "apellidos")
     private String apellidos;
-    @JoinColumn(name = "id_curso", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private DBCurso idCurso;
 
     public DBAlumno() {
     }
@@ -68,8 +68,9 @@ public class DBAlumno implements Serializable {
         this.idAlumno = idAlumno;
     }
 
-    public DBAlumno(Integer idAlumno, String rut, String nombres, String apellidos) {
+    public DBAlumno(Integer idAlumno, int idCurso, String rut, String nombres, String apellidos) {
         this.idAlumno = idAlumno;
+        this.idCurso = idCurso;
         this.rut = rut;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -81,6 +82,14 @@ public class DBAlumno implements Serializable {
 
     public void setIdAlumno(Integer idAlumno) {
         this.idAlumno = idAlumno;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
 
     public String getRut() {
@@ -105,14 +114,6 @@ public class DBAlumno implements Serializable {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    public DBCurso getIdCurso() {
-        return idCurso;
-    }
-
-    public void setIdCurso(DBCurso idCurso) {
-        this.idCurso = idCurso;
     }
 
     @Override

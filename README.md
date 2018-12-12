@@ -886,3 +886,9 @@ Byte Upload: 0 bytes
 
 Ahora validemos el proceso al insertar **Alumnos** en la base, la logica nos dice que deberian listarse junto a sus cursos.
 
+Pero no, la triste verdad es que me tope con un mar de problemas aqui, asi que opte por la ruta **"B"**, que implica quitar la relacion y generarla de manera manual.
+
+Para ello se actualizo la tabla de alumno y se regeneraron las clases de JPA.
+
+Tambien tuve que crear tablas de negocio y transferencia que satisfacieran esta logica.
+
