@@ -1,10 +1,14 @@
 package cl.ciisa.transfer;
 
 import cl.ciisa.data.DBCurso;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class TrCurso {
+@XmlRootElement
+public class TrCurso implements Serializable{
     private Integer id;
     private String nombre;
     private String profesor;
@@ -15,6 +19,10 @@ public class TrCurso {
     private Date crtdFecha;
     private Date lupdFecha;
     private List<TrAlumno> alumnos;
+    
+    public TrCurso(){
+        
+    }
 
     public TrCurso(Integer id, String nombre, String profesor, String descripcion, int nivel, boolean basica, boolean diurno, Date crtdFecha, Date lupdFecha, List<TrAlumno> alumnos) {
         this.id = id;

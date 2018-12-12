@@ -7,6 +7,10 @@ public class TrAlumno {
     private String rut;
     private String nombres;
     private String apellidos;
+    
+    public TrAlumno(){
+        
+    }
 
     public TrAlumno(Integer idAlumno, String rut, String nombres, String apellidos) {
         this.idAlumno = idAlumno;

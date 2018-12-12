@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import cl.ciisa.data.DBCurso;
 import cl.ciisa.negocio.Curso;
+import cl.ciisa.transfer.TrAlumno;
+import cl.ciisa.transfer.TrCurso;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,100 +42,97 @@ public class Servicio {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscarCursoPorId(@PathParam("id") String id) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        Response retorno = null;
-
         try {
-            DBCurso curso = em.find(DBCurso.class, Integer.parseInt(id));
-            retorno = Response.ok(curso).build();
+            return new Curso().buscar(id);
         } catch (Exception e) {
-            retorno = Response.serverError().entity(MensajeError.buscarCursoPorId.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
         }
-
-        return retorno;*/
-        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response guardarCurso(DBCurso curso) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
+    public Response guardarCurso(TrCurso curso) {
         try {
-            tx.begin();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            curso.setCrtdFecha(date);
-            em.persist(curso);
-            tx.commit();
-            
-            retorno = Response.status(Response.Status.CREATED).build();
+            return new Curso().guardarCurso(curso);
         } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.guardarCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
         }
-        return retorno;*/
-        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizaCurso(DBCurso curso) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
+    public Response actualizaCurso(TrCurso curso) {
         try {
-            tx.begin();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            curso.setLupdFecha(date);
-            curso = em.merge(curso);
-            tx.commit();
-            
-            retorno = Response.status(Response.Status.OK).build();
+            return new Curso().actualizaCurso(curso);
         } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.actualizaCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
         }
-        return retorno;*/
-        return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response eliminaCurso(@PathParam("id") String id) {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Response retorno = null;
-
         try {
-            tx.begin();
-            DBCurso curso = em.getReference(DBCurso.class, Integer.parseInt(id));
-            em.remove(curso);
-            tx.commit();
-            retorno = Response.status(Response.Status.OK).build();
+            return new Curso().eliminaCurso(id);
         } catch (Exception e) {
-            tx.rollback();
-            retorno = Response.serverError().entity(MensajeError.eliminaCurso.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
         }
-
-        return retorno;*/
-        return Response.serverError().entity(MetodoNoImplementado).build();
     }
+    
+    @GET
+    @Path("/{id}/Alumno")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarAlumnosPorIdCurso(@PathParam("id") String id) {
+        try {
+            return new Curso().listarAlumnos(id);
+        } catch (Exception e) {
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
+        }
+    }
+    
+    @GET
+    @Path("/Alumno/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarAlumnosPorId(@PathParam("id") String id) {
+        try {
+            return new Curso().buscaAlumno(id);
+        } catch (Exception e) {
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
+        }
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/Alumno")
+    public Response guardarAlumno(@PathParam("id") String id, TrAlumno alumno) {
+        try {
+            return new Curso().guardarAlumno(id, alumno);
+        } catch (Exception e) {
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
+        }
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/Alumno")
+    public Response actualizaCurso(@PathParam("id") String id, TrAlumno alumno) {
+        try {
+            return new Curso().actualizaAlumno(id, alumno);
+        } catch (Exception e) {
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
+        }
+    }
+
+    @DELETE
+    @Path("/Alumno/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminaAlumnosPorId(@PathParam("id") String id) {
+        try {
+            return new Curso().eliminaAlumno(id);
+        } catch (Exception e) {
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
+        }
+    }
+
 }
