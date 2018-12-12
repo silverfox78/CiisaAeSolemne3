@@ -933,6 +933,7 @@ Para la evidencia del proceso, se hizo la siguiente secuencia de acciones:
 
 ### 1.- Listar todos los cursos
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | GET |
 | URL | https://aesolemne3.herokuapp.com/api/curso |
@@ -995,6 +996,7 @@ Resultado:
 
 ### 2. Guardar un nuevo curso
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | POST |
 | URL | https://aesolemne3.herokuapp.com/api/curso |
@@ -1007,6 +1009,7 @@ Codigo HTTP: 201
 
 ### 3. Listar un curso por su ID
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | GET |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6 |
@@ -1030,6 +1033,7 @@ Resultado:
 
 ### 4. Actualizar el curso creado
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | PUT |
 | URL | https://aesolemne3.herokuapp.com/api/curso |
@@ -1043,6 +1047,7 @@ Codigo HTTP: 200
 
 ### 5. Listar el curso por su ID
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | GET |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6 |
@@ -1066,6 +1071,7 @@ Resultado:
 
 ### 6. Crear un alumno en el nuevo curso
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | POST |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno |
@@ -1080,6 +1086,7 @@ Codigo HTTP: 201
 
 ### 7. Listar el alumno por su id
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | GET |
 | URL | https://aesolemne3.herokuapp.com/api/curso/Alumno/7 |
@@ -1100,6 +1107,7 @@ Resultado:
 
 ### 8. Actualizar al alumno
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | PUT |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno |
@@ -1113,6 +1121,7 @@ Codigo HTTP: 200
 
 ### 9. Listar los alumnos del curso
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | GET |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6/Alumno/ |
@@ -1133,6 +1142,7 @@ Resultado:
 
 ### 10. Eliminar el Alumno
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | DELETE |
 | URL | https://aesolemne3.herokuapp.com/api/curso/Alumno/7 |
@@ -1146,6 +1156,7 @@ Codigo HTTP: 200
 
 ### 11. Eliminar el Curso
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | DELETE |
 | URL | https://aesolemne3.herokuapp.com/api/curso/6 |
@@ -1160,6 +1171,7 @@ Codigo HTTP: 200
 
 ### 12. Listar todos los cursos
 
+| Dato | Valor |
 | --- | --- |
 | Verbo | POST |
 | URL | https://aesolemne3.herokuapp.com/api/curso |
