@@ -5,6 +5,7 @@
  */
 package cl.ciisa.data;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -83,7 +85,8 @@ public class DBCurso implements Serializable {
     @Column(name = "lupd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lupdFecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
+    @OneToMany(mappedBy = "idCurso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<DBAlumno> dBAlumnoList;
 
     public DBCurso() {

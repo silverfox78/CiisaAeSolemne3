@@ -5,6 +5,7 @@
  */
 package cl.ciisa.data;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -91,8 +92,9 @@ public class DBAlumno implements Serializable {
     @Column(name = "lupd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lupdFecha;
-    @JoinColumn(name = "id_curso", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JoinColumn(name = "id_curso", referencedColumnName = "id")
+    @JsonBackReference
     private DBCurso idCurso;
 
     public DBAlumno() {
@@ -214,7 +216,7 @@ public class DBAlumno implements Serializable {
         if (!(object instanceof DBAlumno)) {
             return false;
         }
-        DBAlumno other = (DBAlumno) object;
+        DBAlumno other = (DBAlumno) object;        
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
