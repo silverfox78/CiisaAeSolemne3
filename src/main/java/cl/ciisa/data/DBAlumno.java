@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -60,7 +59,7 @@ public class DBAlumno implements Serializable {
     @Size(min = 1, max = 300)
     @Column(name = "apellidos")
     private String apellidos;
-    @JoinColumn(name = "id_curso", referencedColumnName = "id")
+    @JoinColumn(name = "id_curso", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private DBCurso dBCurso;
 

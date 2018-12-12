@@ -24,29 +24,16 @@ import javax.ws.rs.PathParam;
 @Path("/curso")
 public class Servicio {
     public static final String MetodoNoImplementado = "{ \"Error\" : \"Este metodo aun no se implementa.\" }";
+    public static final String ErrorEnMetodo = "{ \"Error\" : \"Este metodo aun no se implementa.\" }";
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listaCursos() {
-        return new Curso().listar();
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory(DBCURSO);
-        EntityManager em = emf.createEntityManager();
-        Response retorno = null;
-
         try {
-            List<DBCurso> lista = em.createNamedQuery(DBCURSO + ".findAll").getResultList();
-            if (lista.size() <= 0) {
-                retorno = Response.noContent().build();
-            } else {
-                retorno = Response.ok().entity(lista).build();
-            }
+            return new Curso().listar();
         } catch (Exception e) {
-            retorno = Response.serverError().entity(MensajeError.listaCursos.getMensaje() + e.getMessage()).build();
-        } finally {
-            em.close();
+            return Response.serverError().entity("{ \"Error\" : \"" + e.getMessage() + "\" }").build();
         }
-        return retorno;*/
-        //return Response.serverError().entity(MetodoNoImplementado).build();
     }
 
     @GET
