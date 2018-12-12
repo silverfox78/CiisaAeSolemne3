@@ -7,7 +7,6 @@ package cl.ciisa.data;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,22 +39,18 @@ public class DBAlumno implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "rut")
     private String rut;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
-    @Column(name = "nombres")
     private String nombres;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
-    @Column(name = "apellidos")
     private String apellidos;
     @JoinColumn(name = "id_curso", referencedColumnName = "id")
     @ManyToOne(optional = false)

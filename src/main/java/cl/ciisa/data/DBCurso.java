@@ -5,7 +5,6 @@
  */
 package cl.ciisa.data;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,32 +50,25 @@ public class DBCurso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
-    @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
-    @Column(name = "profesor")
     private String profesor;
     @Size(max = 1000)
-    @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "nivel")
     private int nivel;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "basica")
     private boolean basica;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "diurno")
     private boolean diurno;
     @Column(name = "crtd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
@@ -85,8 +76,7 @@ public class DBCurso implements Serializable {
     @Column(name = "lupd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lupdFecha;
-    @OneToMany(mappedBy = "idCurso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
     private List<DBAlumno> dBAlumnoList;
 
     public DBCurso() {
