@@ -6,6 +6,7 @@
 package cl.ciisa.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,13 +17,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -81,8 +83,8 @@ public class DBCurso implements Serializable {
     @Column(name = "lupd_fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lupdFecha;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dBCurso")
-    private DBAlumno dBAlumno;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
+    private Collection<DBAlumno> dBAlumnoCollection;
 
     public DBCurso() {
     }
@@ -172,12 +174,13 @@ public class DBCurso implements Serializable {
         this.lupdFecha = lupdFecha;
     }
 
-    public DBAlumno getDBAlumno() {
-        return dBAlumno;
+    @XmlTransient
+    public Collection<DBAlumno> getDBAlumnoCollection() {
+        return dBAlumnoCollection;
     }
 
-    public void setDBAlumno(DBAlumno dBAlumno) {
-        this.dBAlumno = dBAlumno;
+    public void setDBAlumnoCollection(Collection<DBAlumno> dBAlumnoCollection) {
+        this.dBAlumnoCollection = dBAlumnoCollection;
     }
 
     @Override

@@ -3,11 +3,11 @@ CREATE SEQUENCE tbl_alumno_seq;
 CREATE TABLE public.tbl_alumno
 (
     id_alumno integer NOT NULL DEFAULT nextval('tbl_alumno_seq'),
-    id_curso integer NOT NULL REFERENCES tbl_curso(id) ON DELETE CASCADE,
+    id_curso integer NOT NULL REFERENCES tbl_curso(id_curso) ON DELETE CASCADE,
     rut character varying(20) NOT NULL,
     nombres character varying(300) NOT NULL,
     apellidos character varying(300) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id_alumno)
 )
 WITH (
     OIDS = FALSE
